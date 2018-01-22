@@ -66,11 +66,11 @@ $(document).ready(function($) {
             
             var personnesParGroupe = tailleTableau / nombreDeGroupe;
 
-            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + a + '">Groupe ' + a + ' :</div>');
+            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + a + '">Groupe ' + a + ' </div>');
             
             for (var b = 1; b <= personnesParGroupe; b++) {
                 
-                $('#groupeTravail'+a).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>')
+                $('#groupeTravail'+a).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>')
                 nbEleve++;
             };
 
@@ -87,19 +87,19 @@ $(document).ready(function($) {
     
             for (var m = 1; m <= nombreDeGroupe; m++){
                 
-                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
+                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' </div>');
     
                 for (var n = 1; n <= 3; n++){
-                    $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                    $('#groupeTravail'+m).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
                     nbEleve++;
                 };
     
                 m++;
     
-                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
+                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' </div>');
     
                 for (var o = 1; o <= 2; o++){
-                    $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                    $('#groupeTravail'+m).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
                     nbEleve++;
                 };
                 
@@ -113,18 +113,18 @@ $(document).ready(function($) {
 
             for (var e = 1; e < nombreDeGroupe; e++) {
 
-                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' :</div>');
+                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' </div>');
 
                 for (var f=1; f <= personnesParGroupeCalcul; f++){
-                    $('#groupeTravail'+e).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                    $('#groupeTravail'+e).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
                     nbEleve++;
                 };
             };
 
-            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' :</div>');
+            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' </div>');
 
             for (var g=1; g <= (Math.ceil(personnesParGroupe)); g++){
-                $('#groupeTravail'+e).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                $('#groupeTravail'+e).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
                 nbEleve++;
             };
         };
