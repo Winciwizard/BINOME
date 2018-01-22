@@ -28,6 +28,8 @@ $(document).ready(function($) {
     $boutonNomAleatoire.click(function() {
 
         $('.groupeTravail').remove();
+        $('.erreur').remove();
+
 
         var nombreDeGroupe = $('#nombreDeGroupe').val();
 
@@ -50,32 +52,11 @@ $(document).ready(function($) {
             
         };
 
-    console.log('nb groupe '+nombreDeGroupe);
+    if(nombreDeGroupe < 2 || nombreDeGroupe > 7){
 
-    if (nombreDeGroupe === "6") {
-        console.log("ok");
-        var nbEleve = 0;
-
-        for (var m = 1; m <= nombreDeGroupe; m++){
-            
-            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
-
-            for (var n = 1; n <= 3; n++){
-                $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
-                nbEleve++;
-            };
-
-            m++;
-
-            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
-
-            for (var o = 1; o <= 2; o++){
-                $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
-                nbEleve++;
-            };
-            
-        };
-    };
+        $listeGroupes.append('<div class="erreur" id="erreur">Le nombre de groupe doit être compris entre 2 et 7</div>');
+    
+    } else {
 
     if (tailleTableau%nombreDeGroupe === 0){
 
@@ -96,14 +77,68 @@ $(document).ready(function($) {
 
         };
     };
+
+
+    if (tailleTableau%nombreDeGroupe != 0){
+
+        if (nombreDeGroupe === "6") {
+
+            var nbEleve = 0;
     
+            for (var m = 1; m <= nombreDeGroupe; m++){
+                
+                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
+    
+                for (var n = 1; n <= 3; n++){
+                    $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                    nbEleve++;
+                };
+    
+                m++;
+    
+                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
+    
+                for (var o = 1; o <= 2; o++){
+                    $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                    nbEleve++;
+                };
+                
+            };
+        } else {
 
-    console.log(tableauResultats);
+            var nbEleve = 0,
+                personnesParGroupe = tailleTableau / nombreDeGroupe;
 
-    for (var z=0;z<tailleTableau;z++){
-        console.log(tableauListeEleve[tableauResultats[z]]);
+            var personnesParGroupeCalcul = Math.floor(personnesParGroupe);
+
+            for (var e = 1; e < nombreDeGroupe; e++) {
+
+                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' :</div>');
+
+                for (var f=1; f <= personnesParGroupeCalcul; f++){
+                    $('#groupeTravail'+e).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                    nbEleve++;
+                };
+            };
+
+            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' :</div>');
+
+            for (var g=1; g <= (Math.ceil(personnesParGroupe)); g++){
+                $('#groupeTravail'+e).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                nbEleve++;
+            };
+        };
+
     };
+    
+    //AFFICHE LA LISTE ALEATOIRE DES ELEVES - LAISSER SI TEST NECESSAIRES
+    //for (var z=0;z<tailleTableau;z++){
+    //    console.log(tableauListeEleve[tableauResultats[z]]);
+    //};
 
+    };
+    
     });
+
 
 });
