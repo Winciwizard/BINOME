@@ -50,17 +50,27 @@ $(document).ready(function($) {
 
     console.log(nombreDeGroupe);
 
+
     if (tailleTableau%nombreDeGroupe != 0){
         console.log('erreur');
     } else {
-         for (a = 1; a <= tailleTableau; a++) {
-                
-            $listeGroupes.append('<div class="groupeTravail"></div>');
+        
+        var nbEleve = 1;
+
+        for (var a = 1; a <= nombreDeGroupe; a++) {
             
-        }
+            var personnesParGroupe = tailleTableau / nombreDeGroupe;
+
+            $listeGroupes.append('<div id="groupeTravail' + a + '"></div>');
+            for (var b = 1; b <= personnesParGroupe; b++) {
+                $('#groupeTravail'+a).append('<span> '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>')
+                nbEleve++;
+            };
+
+
+        };
     };
     
-    var personnesParGroupe = tailleTableau / nombreDeGroupe;
 
     console.log(personnesParGroupe);
 
