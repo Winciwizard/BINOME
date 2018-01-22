@@ -52,11 +52,33 @@ $(document).ready(function($) {
 
     console.log('nb groupe '+nombreDeGroupe);
 
+    if (nombreDeGroupe === "6") {
+        console.log("ok");
+        var nbEleve = 0;
 
-    if (tailleTableau%nombreDeGroupe != 0){
-        console.log('erreur');
-    } else {
-        
+        for (var m = 1; m <= nombreDeGroupe; m++){
+            
+            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
+
+            for (var n = 1; n <= 3; n++){
+                $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                nbEleve++;
+            };
+
+            m++;
+
+            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' :</div>');
+
+            for (var o = 1; o <= 2; o++){
+                $('#groupeTravail'+m).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>');
+                nbEleve++;
+            };
+            
+        };
+    };
+
+    if (tailleTableau%nombreDeGroupe === 0){
+
         var nbEleve = 0;
 
         for (var a = 1; a <= nombreDeGroupe; a++) {
@@ -64,7 +86,9 @@ $(document).ready(function($) {
             var personnesParGroupe = tailleTableau / nombreDeGroupe;
 
             $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + a + '">Groupe ' + a + ' :</div>');
+            
             for (var b = 1; b <= personnesParGroupe; b++) {
+                
                 $('#groupeTravail'+a).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>')
                 nbEleve++;
             };
@@ -74,13 +98,11 @@ $(document).ready(function($) {
     };
     
 
-    console.log('nb personne par groupe '+personnesParGroupe);
+    console.log(tableauResultats);
 
     for (var z=0;z<tailleTableau;z++){
-        console.log(tableauResultats);
         console.log(tableauListeEleve[tableauResultats[z]]);
     };
-    
 
     });
 
