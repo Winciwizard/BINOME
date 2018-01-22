@@ -1,14 +1,14 @@
 $(document).ready(function($) {
 
     var tableauListeEleve = [ //tableau de la liste des élèves
-        "Vincent V",
+        "VincentV",
         "Theo",
-        "Zouleka"
-        ,"Alexandre Bou",
-        "Vincent M",
+        "Zouleka",
+        "AlexandreBo",
+        "VincentM",
         "Amhed",
         "Eric",
-        "Alexandre Bi",
+        "AlexandreBi",
         "Arnaud",
         "Cecilia",
         "Julien",
@@ -27,13 +27,15 @@ $(document).ready(function($) {
 
     $boutonNomAleatoire.click(function() {
 
+        $('.groupeTravail').remove();
+
         var nombreDeGroupe = $('#nombreDeGroupe').val();
 
         if (tableauResultats.length === tailleTableau){ //vérifie si le tableau est plein et le vide le cas échéant
             tableauResultats = [];
         };
 
-        for (var i = 0; i < tailleTableau; i++) {
+        for (var i = 1; i <= tailleTableau; i++) {
 
             
             var indexEleveAleatoire = (Math.floor((tailleTableau)*Math.random()));
@@ -48,22 +50,22 @@ $(document).ready(function($) {
             
         };
 
-    console.log(nombreDeGroupe);
+    console.log('nb groupe '+nombreDeGroupe);
 
 
     if (tailleTableau%nombreDeGroupe != 0){
         console.log('erreur');
     } else {
         
-        var nbEleve = 1;
+        var nbEleve = 0;
 
         for (var a = 1; a <= nombreDeGroupe; a++) {
             
             var personnesParGroupe = tailleTableau / nombreDeGroupe;
 
-            $listeGroupes.append('<div id="groupeTravail' + a + '"></div>');
+            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + a + '">Groupe ' + a + ' :</div>');
             for (var b = 1; b <= personnesParGroupe; b++) {
-                $('#groupeTravail'+a).append('<span> '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>')
+                $('#groupeTravail'+a).append('<span> /'+tableauListeEleve[tableauResultats[nbEleve]]+'./ </span>')
                 nbEleve++;
             };
 
@@ -72,8 +74,12 @@ $(document).ready(function($) {
     };
     
 
-    console.log(personnesParGroupe);
+    console.log('nb personne par groupe '+personnesParGroupe);
 
+    for (var z=0;z<tailleTableau;z++){
+        console.log(tableauResultats);
+        console.log(tableauListeEleve[tableauResultats[z]]);
+    };
     
 
     });
