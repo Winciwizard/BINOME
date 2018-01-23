@@ -1,6 +1,6 @@
 $(document).ready(function($) {
 
-    var tableauListeEleve = [ //tableau de la liste des élèves
+    var tableauListeEleve = [ //Tableau de la liste des élèves
         "VincentV",
         "Theo",
         "Zouleka",
@@ -27,108 +27,83 @@ $(document).ready(function($) {
 
     $boutonNomAleatoire.click(function() {
 
-        $('.groupeTravail').remove();
+        $('.groupeTravail').remove();//Efface les messages précédents
         $('.erreur').remove();
 
 
-        var nombreDeGroupe = $('#nombreDeGroupe').val();
+        var nombreDeGroupe = $('#nombreDeGroupe').val();//Recupére le nombre de groupes choisis
 
-        if (tableauResultats.length === tailleTableau){ //vérifie si le tableau est plein et le vide le cas échéant
+        if (tableauResultats.length === tailleTableau){ //Vérifie si le tableau est plein et le vide le cas échéant
             tableauResultats = [];
         };
 
-        for (var i = 1; i <= tailleTableau; i++) {
+        for (var i = 1; i <= tailleTableau; i++) {//Boulce de remplissage du tableau avec les index aléatoires
 
-            
-            var indexEleveAleatoire = (Math.floor((tailleTableau)*Math.random()));
+            var indexEleveAleatoire = (Math.floor((tailleTableau)*Math.random()));//Sort un nombre aléatoire entre 1 et 15
 
-            while ($.inArray(indexEleveAleatoire, tableauResultats) != -1) {
-        
-                    indexEleveAleatoire = (Math.floor((tailleTableau)*Math.random()));
-
+            while ($.inArray(indexEleveAleatoire, tableauResultats) != -1) {//Verifie qu'il n'est pas déjà dans le tableau
+                indexEleveAleatoire = (Math.floor((tailleTableau)*Math.random()));//Sinon retire au sort un index juqu'a ce qu'il ne soit pas dans le tableau
             };
 
-        tableauResultats.push(indexEleveAleatoire); //rajoute le nombre aléatoire dans le tableau des résultats
-            
+        tableauResultats.push(indexEleveAleatoire); //rajoute le nombre aléatoire dans le tableau des résultats   
         };
 
-    if(nombreDeGroupe < 2 || nombreDeGroupe > 7){
+
+    function impressionNom(numGroup, limiteHaute){//Fonction d'affichage des noms
+
+        $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + numGroup + '">Groupe ' + numGroup + ' </div>');//Integre un div qui englobe tous les élèves d'un groupe
+            
+        for (var b = 1; b <= limiteHaute; b++) {//Integre un span dans le code pour chaque éléve en fonction du nombre par groupe
+            $('#groupeTravail'+ numGroup).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>')
+            nbEleve++;
+        };
+    };
+
+
+
+
+    if(nombreDeGroupe < 2 || nombreDeGroupe > 7){//Vérification que le nombre de groupe soit bien compris entre 2 et 7 inclus
 
         $listeGroupes.append('<div class="erreur" id="erreur">Le nombre de groupe doit être compris entre 2 et 7</div>');
     
     } else {
 
-    if (tailleTableau%nombreDeGroupe === 0){
+    if (tailleTableau%nombreDeGroupe === 0){//Si le nombre d'élèves est divisible par le nombre de groupes (pour 5 et 3 groupes)
 
         var nbEleve = 0;
 
-        for (var a = 1; a <= nombreDeGroupe; a++) {
-            
+        for (var a = 1; a <= nombreDeGroupe; a++) {//Affiche x groupe de y personnes
             var personnesParGroupe = tailleTableau / nombreDeGroupe;
 
-            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + a + '">Groupe ' + a + ' </div>');
-            
-            for (var b = 1; b <= personnesParGroupe; b++) {
-                
-                $('#groupeTravail'+a).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>')
-                nbEleve++;
-            };
-
-
+            impressionNom(a, personnesParGroupe);
         };
     };
 
 
-    if (tailleTableau%nombreDeGroupe != 0){
+    if (tailleTableau%nombreDeGroupe != 0){//Si le nombre d'élèves est n'est pas divisible par le nombre de groupes
 
-        if (nombreDeGroupe === "6") {
+        if (nombreDeGroupe === "6") {//Pour 6 groupes
 
             var nbEleve = 0;
     
-            for (var m = 1; m <= nombreDeGroupe; m++){
-                
-                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' </div>');
-    
-                for (var n = 1; n <= 3; n++){
-                    $('#groupeTravail'+m).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
-                    nbEleve++;
-                };
-    
+            for (var m = 1; m <= nombreDeGroupe; m++){ //Affiche 3 fois 1 groupe de 3 et 1 groupe de 2
+                impressionNom(m, 3);
                 m++;
-    
-                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + m + '">Groupe ' + m + ' </div>');
-    
-                for (var o = 1; o <= 2; o++){
-                    $('#groupeTravail'+m).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
-                    nbEleve++;
-                };
-                
+                impressionNom(m, 2);    
             };
-        } else {
+        } else {//Pour les autres nombre de groupes (2,4,7)
 
             var nbEleve = 0,
                 personnesParGroupe = tailleTableau / nombreDeGroupe;
 
             var personnesParGroupeCalcul = Math.floor(personnesParGroupe);
 
-            for (var e = 1; e < nombreDeGroupe; e++) {
-
-                $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' </div>');
-
-                for (var f=1; f <= personnesParGroupeCalcul; f++){
-                    $('#groupeTravail'+e).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
-                    nbEleve++;
-                };
+            for (var e = 1; e < nombreDeGroupe; e++) {//Integre x groupe avec pour le dernier groupe 1 élève de plus que les autres
+                impressionNom(e, personnesParGroupeCalcul);
             };
 
-            $listeGroupes.append('<div class="groupeTravail" id="groupeTravail' + e + '">Groupe ' + e + ' </div>');
-
-            for (var g=1; g <= (Math.ceil(personnesParGroupe)); g++){
-                $('#groupeTravail'+e).append('<span class="nomEleve"> : '+tableauListeEleve[tableauResultats[nbEleve]]+' </span>');
-                nbEleve++;
-            };
+            impressionNom(e, (Math.ceil(personnesParGroupe))); 
         };
-
     };
     
     //AFFICHE LA LISTE ALEATOIRE DES ELEVES - LAISSER SI TEST NECESSAIRES
@@ -139,6 +114,4 @@ $(document).ready(function($) {
     };
     
     });
-
-
 });
